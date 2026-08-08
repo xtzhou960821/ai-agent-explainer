@@ -814,6 +814,42 @@ reply = runner.run(
       </button>
       <div class="faq-a"><p>原因通常有三类：模型推理出现偏差（幻觉）、工具调用失败（API 报错、数据格式不符）、或规划在复杂场景下"钻牛角尖"。成熟的 Agent 会通过重试机制、结果验证和多轮反馈来缓解这些问题。</p></div>
     </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false">Harness 和 Agent 开发框架到底有什么区别？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a"><p>Harness 是让 Agent 安全、持续运行的运行时机制：它负责循环、工具调用、状态、权限、重试与追踪；开发框架则是开发者写出这些流程的工具箱和抽象层。许多框架自带 Harness 能力，但两者不等同：前者关注“怎么稳定地跑”，后者也关注“怎么方便地写”。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false">做 Agent 一定要使用开发框架吗？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a"><p>不一定。单一、步骤固定的任务，用少量代码调用模型和工具往往更清晰；当任务需要状态管理、分支与循环、多人协作、持久化或可观测性时，框架能省去大量重复工程。先用最简单且可验证的方式解决问题，再根据复杂度引入框架，通常是更稳妥的选择。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false">什么时候用框架内置的 Harness，什么时候需要自建？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a"><p>原型验证和常见流程优先使用框架内置能力：接入快，也能获得成熟的工具路由、状态管理与追踪。只有当你的权限模型、审计要求、工具协议、成本控制或部署环境与框架约束明显冲突时，才考虑自建或深度扩展 Harness；自建意味着也要自己承担测试、监控与故障恢复。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false">LangGraph、Google ADK、OpenAI Agents SDK、CrewAI 应该怎么选？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a"><p>先看任务形态，而不是框架热度：需要精确控制状态、分支与中断时可优先看 LangGraph；想快速搭建以会话和 Google 生态为中心的应用可看 ADK；希望轻量实现工具调用与 Agent 交接可看 OpenAI Agents SDK；任务天然需要明确角色分工时可评估 CrewAI。用一个真实的小任务做原型，比较可控性、调试体验和部署成本后再定型。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false">多 Agent 一定比单 Agent 更好吗？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a"><p>不一定。多 Agent 能把专业角色、上下文和权限隔离开，适合可并行或需要交叉审阅的复杂任务；但它也会增加协调、延迟、成本和排错难度。若一个 Agent 加上清晰的工具和步骤就能完成任务，单 Agent 往往更快、更便宜、更容易验证；只有分工能带来可衡量收益时才拆分。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" aria-expanded="false">上生产时，Harness 最需要补齐哪些能力？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a"><p>优先补齐四类底线能力：为工具设置最小权限和关键操作审批；记录模型、工具和状态的可追溯日志；为超时、错误与重复调用设置重试、限额和安全停止条件；用真实任务集持续评估质量、成本和延迟。先把“出错时会怎样”设计清楚，才适合把更高的自主权交给 Agent。</p></div>
+    </div>
   </div>
 </section>
 
