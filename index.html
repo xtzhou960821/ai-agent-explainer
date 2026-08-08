@@ -183,6 +183,39 @@
   .ic-cyan { background:linear-gradient(135deg,#06B6D4,#6366F1); }
   .card h3 { font-size:18px; margin-bottom:10px; }
   .card p { color:var(--color-muted); font-size:14.5px; }
+
+  /* ---- Code blocks ---- */
+  .code-tabs { margin-top:14px; display:flex; gap:6px; }
+  .code-tabs button {
+    background:rgba(255,255,255,0.04); border:1px solid var(--color-card-border); color:var(--color-muted);
+    padding:6px 14px; border-radius:8px 8px 0 0; font-size:12.5px; font-weight:600; cursor:pointer; transition:all .2s var(--ease);
+  }
+  .code-tabs button.active { background:rgba(124,58,237,0.14); color:#C4B5FD; border-color:rgba(124,58,237,0.35); }
+  .code-wrap { background:#0D0B18; border:1px solid rgba(124,58,237,0.22); border-radius:0 12px 12px 12px; overflow:hidden; box-shadow:var(--shadow-lg); }
+  .code-head { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; background:rgba(124,58,237,0.08); border-bottom:1px solid var(--color-card-border); }
+  .code-head .dots { display:flex; gap:6px; }
+  .code-head .dot { width:11px; height:11px; border-radius:50%; }
+  .code-head .dot.r{background:#FF5F57}.code-head .dot.y{background:#FEBC2E}.code-head .dot.g{background:#28C840}
+  .code-head .lang { font-size:12px; color:var(--color-muted); font-family:var(--font-heading); font-weight:600; }
+  pre.code { margin:0; padding:18px 20px; overflow-x:auto; line-height:1.55; font-size:13.5px; }
+  pre.code code { font-family:'SFMono-Regular',ui-monospace,'JetBrains Mono',Menlo,monospace; color:#E6E1FF; }
+  .tok-k { color:#C4B5FD; } .tok-s { color:#86EFAC; } .tok-f { color:#FBBF24; } .tok-c { color:#7D79A3; } .tok-n { color:#F9A8D4; }
+
+  /* ---- Comparison table ---- */
+  .table-wrap { overflow-x:auto; border:1px solid rgba(124,58,237,0.22); border-radius:16px; box-shadow:var(--shadow-lg); }
+  table.cmp { width:100%; border-collapse:collapse; min-width:760px; background:rgba(255,255,255,0.02); }
+  table.cmp th, table.cmp td { padding:14px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--color-card-border); font-size:14px; }
+  table.cmp thead th { background:rgba(124,58,237,0.12); color:#EDE9FF; font-family:var(--font-heading); font-size:14px; }
+  table.cmp tbody th { color:#EDE9FF; font-family:var(--font-heading); font-size:14px; font-weight:600; background:rgba(255,255,255,0.02); }
+  table.cmp td { color:var(--color-muted); }
+  table.cmp tr:last-child td, table.cmp tr:last-child th { border-bottom:none; }
+  table.cmp tr:hover td { background:rgba(124,58,237,0.05); }
+  .pill { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11.5px; font-weight:600; }
+  .pill.hi { background:rgba(52,211,153,0.14); color:#6EE7B7; border:1px solid rgba(52,211,153,0.3); }
+  .pill.mid { background:rgba(251,191,36,0.14); color:#FCD34D; border:1px solid rgba(251,191,36,0.3); }
+  .pill.lo { background:rgba(99,102,241,0.16); color:#A5B4FC; border:1px solid rgba(99,102,241,0.35); }
+  .check { color:#6EE7B7; } .cross { color:#F87171; }
+
   @media(max-width:900px){ .grid{ grid-template-columns:repeat(2,1fr); } }
   @media(max-width:600px){ .grid{ grid-template-columns:1fr; } }
 
@@ -513,6 +546,200 @@
       <h3>LlamaIndex / LlamaAgent</h3>
       <p>围绕数据与检索构建 Agent：擅长把企业数据、文档与 RAG 流程接入 Agent 工作流，提供数据层能力与 Agent 编排的紧密结合。</p>
     </div>
+    <div class="card reveal">
+      <div class="ic ic-pink"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3>SmolAgents</h3>
+      <p>Hugging Face 推出的极简 Agent 库：核心只有"CodeAgent + 工具"。让模型直接写代码作为行动方式，代码即工具调用，兼顾灵活与可读，适合快速原型。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></div>
+      <h3>Pydantic AI</h3>
+      <p>以类型安全为核心的 Agent 框架：用 Pydantic 模型定义工具与输出 schema，结构验证开箱即用，类型错误在运行前就能被捕获，适合重视正确性的生产应用。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h3>Microsoft Semantic Kernel</h3>
+      <p>微软面向企业应用的多语言 SDK（C#/Python/Java）：强调"规划器 + 语义内核"与插件体系，与 Azure 生态深度集成，适合已有 .NET/云技术栈的团队。</p>
+    </div>
+  </div>
+
+  <!-- ========== LangGraph DEEP DIVE ========== -->
+  <div class="sec-head reveal" style="margin-top:64px;">
+    <div class="kicker">Deep Dive · LangGraph</div>
+    <h2>LangGraph：把 Agent 画成一张状态图</h2>
+    <p>LangGraph（LangChain 团队出品）把 Agent 流程建模成一张<strong>"有状态的有向图"</strong>：节点是函数，边是转移逻辑，节点之间共享一份可类型化校验的状态。它让你精确控制每一步的执行顺序、分支与循环。</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div>
+        <h3>状态（State）：流程的"共享黑板"</h3>
+        <p>用一个 TypedDict 声明整条流程的状态结构，例如是否收到用户输入、检索到的文档、已生成的答案等。所有节点都能读写这份状态，节点之间通过它传递信息。</p>
+        <span class="tag">共享状态 · 类型安全</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <div>
+        <h3>节点（Node）：干活的函数</h3>
+        <p>每个节点就是一个普通 Python 函数：输入当前状态，做自己的事（调模型、查数据库、调用工具），再把更新后的状态返回。函数即节点，零魔法。</p>
+        <span class="tag">函数即节点</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <div>
+        <h3>边与条件边（Edges / Conditional Edges）</h3>
+        <p>普通边定义"无条件从 A 走到 B"；条件边则是"根据当前状态决定下一步去哪个节点"——这正是让 Agent 能自主分支、循环、重试的关键。</p>
+        <span class="tag">自主分支 · 可预测</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">4</div>
+      <div>
+        <h3>编译与运行（Compile / Stream）</h3>
+        <p>把图编译成可执行对象后即可并行/流式运行。它还内置了持久化（checkpoint）、断点续跑（interrupt）、人工审批与 LangSmith 追踪，天然适合生产级工作流。</p>
+        <span class="tag">可编译 · 可中断 · 可观测</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:56px;">
+    <div class="kicker">LangGraph Code</div>
+    <h3 style="font-size:26px;margin-bottom:10px;">代码示例：检索 → 生成 → 评估 的迷你工作流</h3>
+    <p>下面用一个"检索答案 → 判断是否需要追问 → 生成回复"的最小图，演示状态、节点与条件边的写法。</p>
+  </div>
+  <div class="code-wrap reveal">
+    <div class="code-head"><div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="lang">Python · LangGraph</span></div>
+    <pre class="code"><code><span class="tok-k">from</span> typing import Annotated, TypedDict
+<span class="tok-k">from</span> langgraph.graph import StateGraph, START, END
+
+<span class="tok-k">class</span> <span class="tok-f">State</span>(TypedDict):
+    question: str                      <span class="tok-c"># 用户问题</span>
+    docs: list[str]                    <span class="tok-c"># 检索到的资料</span>
+    answer: str = ""                   <span class="tok-c"># 生成的答案</span>
+
+<span class="tok-k">def</span> <span class="tok-f">retrieve</span>(state: State):            <span class="tok-c"># 节点 1：检索</span>
+    <span class="tok-k">return</span> {"docs": [f"<span class="tok-s">{state['question']}</span> 的相关资料"]}
+
+<span class="tok-k">def</span> <span class="tok-f">answer</span>(state: State):              <span class="tok-c"># 节点 2：生成</span>
+    <span class="tok-k">return</span> {"answer": <span class="tok-s">f"根据 {len(state['docs'])} 份资料总结："</span> + <span class="tok-s">"要点ABC"</span>}
+
+<span class="tok-k">def</span> <span class="tok-f">route</span>(state: State) -&gt; str:       <span class="tok-c"># 条件边：不够确定就反问</span>
+    <span class="tok-k">return</span> <span class="tok-s">"answer"</span> <span class="tok-k">if</span> <span class="tok-s">"资料"</span> <span class="tok-k">in</span> state["docs"][0] <span class="tok-k">else</span> <span class="tok-s">"clarify"</span>
+
+<span class="tok-k">def</span> <span class="tok-f">clarify</span>(state: State):            <span class="tok-c"># 兜底节点</span>
+    <span class="tok-k">return</span> {"answer": <span class="tok-s">"请补充更多信息"</span>}
+
+builder = StateGraph(State)
+builder.add_node("retrieve", retrieve)
+builder.add_node("answer", answer)
+builder.add_node("clarify", clarify)
+builder.add_edge(START, "retrieve")
+builder.add_conditional_edges("retrieve", route, {"answer", "clarify"})
+builder.add_edge("answer", END)
+builder.add_edge("clarify", END)
+
+graph = builder.compile()              <span class="tok-c"># 编译为可运行对象</span>
+<span class="tok-k">print</span>(graph.invoke({"question": <span class="tok-s">"什么是RAG?"</span>}))</code></pre>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:64px;">
+    <div class="kicker">Deep Dive · Google ADK</div>
+    <h2>Google ADK：以"会话"为中心的 Agent 框架</h2>
+    <p>Google 的 <strong>Agent Development Kit（ADK）</strong>把"会话（session）"当作一等公民：所有 Agent 的状态、记忆、工具与审批都挂在一次会话上。它面向生产，强调开发效率、多 Agent 协作与跨后端部署。</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div>
+        <h3>会话即状态：记忆自动保存</h3>
+        <p>用 <span class="tag">InMemoryRunner</span> 或 CloudRunner 创建会话，模型、工具调用结果、Agent 记忆都会写入会话状态。天然支持断点续聊、多轮上下文与人工介入。</p>
+        <span class="tag">会话式状态 · 自动记忆</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <div>
+        <h3>声明式 Agent + 工具</h3>
+        <p>用 Python 类或 dict 声明 Agent，把普通函数一键注册为工具。也内置 MCP 工具支持，能直接接入 Google 生态（Gemini、Vertex、Cloud 工具）与第三方 MCP 服务器。</p>
+        <span class="tag">声明式 · 函数即工具</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <div>
+        <h3>多 Agent 与子 Agent（Sub-agents）</h3>
+        <p>一个 Agent 可以声明 <span class="tag">sub_agents</span>，把子任务委派给更专注的 Agent；也可用角色路由实现团队式编排。会话状态让多 Agent 之间共享上下文更自然。</p>
+        <span class="tag">委派协作 · 共享会话</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">4</div>
+      <div>
+        <h3>内置人机审批与可观测</h3>
+        <p>内置 human-in-the-loop（在工具执行前请求人工确认）、流式输出、与 Vertex AI / Langfuse / OpenTelemetry 集成的追踪，让从原型到生产的路径更顺滑。</p>
+        <span class="tag">人工审批 · 生产级追踪</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:56px;">
+    <div class="kicker">Google ADK Code</div>
+    <h3 style="font-size:26px;margin-bottom:10px;">代码示例：一个带工具的客服 Agent</h3>
+    <p>下面用声明式 Agent 对象 + 工具函数 + 会话状态演示 ADK 的核心写法：工具、会话记忆与多 Agent（sub-agents）协作。</p>
+  </div>
+  <div class="code-wrap reveal">
+    <div class="code-head"><div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="lang">Python · Google ADK</span></div>
+    <pre class="code"><code><span class="tok-k">from</span> google.adk.agents import Agent
+<span class="tok-k">from</span> google.adk.tools import FunctionTool
+<span class="tok-k">from</span> google.adk.runners import InMemoryRunner
+
+<span class="tok-k">def</span> <span class="tok-f">check_order</span>(order_id: str) -&gt; str:  <span class="tok-c"># 工具：查订单状态</span>
+    <span class="tok-k">return</span> <span class="tok-s">f"订单 {order_id} 状态：已发货"</span>
+
+tool = FunctionTool(func=check_order)
+
+agent = Agent(
+    model=<span class="tok-s">"gemini-2.0-flash"</span>,        <span class="tok-c"># 可换 Vertex / Ollama 等后端</span>
+    name=<span class="tok-s">"support_bot"</span>,
+    instruction=<span class="tok-s">"你是客服助手，友好且简洁。"</span>,
+    tools=[tool],                     <span class="tok-c"># 挂载工具</span>
+)
+
+runner = InMemoryRunner(agent=agent)   <span class="tok-c"># 会话式运行器</span>
+reply = runner.run(
+    user_id=<span class="tok-s">"u1"</span>,
+    session_id=<span class="tok-s">"s1"</span>,
+    message=<span class="tok-s">"帮我查一下订单 10086"</span>,
+)
+<span class="tok-k">print</span>(reply.message.content)           <span class="tok-c"># 会话记忆自动保留</span></code></pre>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:56px;">
+    <div class="kicker">Framework Comparison</div>
+    <h2>主流框架一图对比</h2>
+    <p>选择框架的核心是<strong>匹配你的场景</strong>：复杂可控的工作流选 LangGraph，快速出原型选 ADK / SmolAgents，多角色团队选 CrewAI，数据密集的 RAG 选 LlamaIndex。下表帮你快速横向对比。</p>
+  </div>
+  <div class="table-wrap reveal">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th>维度</th><th>LangGraph</th><th>Google ADK</th><th>OpenAI Agents SDK</th><th>CrewAI</th><th>SmolAgents</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th>核心理念</th><td>状态图编排</td><td>会话式多 Agent 框架</td><td>Agent + 交接(Handoffs)</td><td>角色分工协作</td><td>代码即行动</td></tr>
+        <tr><th>上手难度</th><td><span class="pill mid">中</span></td><td><span class="pill hi">低</span></td><td><span class="pill hi">低</span></td><td><span class="pill mid">中</span></td><td><span class="pill hi">低</span></td></tr>
+        <tr><th>复杂流程控制</th><td><span class="check">★★★★★</span></td><td><span class="check">★★★☆☆</span></td><td><span class="check">★★★☆☆</span></td><td><span class="check">★★★☆☆</span></td><td><span class="check">★★☆☆☆</span></td></tr>
+        <tr><th>多 Agent 协作</th><td><span class="check">★★★★☆</span></td><td><span class="check">★★★★★</span></td><td><span class="check">★★★★☆</span></td><td><span class="check">★★★★★</span></td><td><span class="check">★★★☆☆</span></td></tr>
+        <tr><th>内置工具生态</th><td>LangChain 生态</td><td>Google 生态(MCP/Vertex)</td><td>OpenAI 生态</td><td>自带工具 + 自定义</td><td>Hugging Face 生态</td></tr>
+        <tr><th>生产级能力</th><td><span class="check">强</span>（持久化/中断/追踪）</td><td><span class="check">强</span>（会话/审批/追踪）</td><td><span class="check">强</span>（追踪/流式）</td><td><span class="check">中</span></td><td><span class="check">中</span></td></tr>
+        <tr><th>人机审批</th><td>interrupt 断点</td><td>内置 human-in-the-loop</td><td>需自行接入</td><td>需自行接入</td><td>需自行接入</td></tr>
+        <tr><th>语言</th><td>Python / JS</td><td>Python</td><td>Python / TS</td><td>Python</td><td>Python</td></tr>
+        <tr><th>最佳场景</th><td>可预测的复杂工作流</td><td>生产级多 Agent 应用</td><td>轻量单/多 Agent 快速迭代</td><td>团队式任务编排</td><td>快速原型与教学</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="sec-head reveal" style="margin-top:56px;">
