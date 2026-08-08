@@ -252,6 +252,7 @@
       <a href="#components">核心组件</a>
       <a href="#pipeline">执行流程</a>
       <a href="#harness">Harness</a>
+      <a href="#frameworks">开发框架</a>
       <a href="#faq">常见问题</a>
       <a class="nav-cta" href="#cta">开始了解</a>
     </div>
@@ -471,6 +472,87 @@
   <div class="cta-band reveal" style="margin-top:40px;">
     <h2>一句话理解 Harness</h2>
     <p>如果说大模型是 Agent 的"大脑"、工具是"手脚"，那么 Harness 就是让大脑与手脚协同工作的"身体与指挥中心"——决定思考如何被执行、工具如何被调用、边界如何被守住。</p>
+  </div>
+</section>
+
+<!-- ================= FRAMEWORKS ================= -->
+<section id="frameworks" class="wrap">
+  <div class="sec-head reveal">
+    <div class="kicker">Agent Frameworks</div>
+    <h2>常用 Agent 开发框架</h2>
+    <p>框架是把上述理念落地成工程的关键：它们提供状态图、工具接入、记忆与可观测性等现成能力，让开发者不必从零实现一个 Harness。</p>
+  </div>
+  <div class="grid">
+    <div class="card reveal">
+      <div class="ic ic-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v6a3 3 0 0 0 3 3h6"/><path d="M9 6h6a3 3 0 0 1 3 3v3"/></svg></div>
+      <h3>LangGraph</h3>
+      <p>把 Agent 流程建模成一张"有状态图"：节点是函数，边是转移逻辑，节点之间共享状态。擅长复杂、可预测的多步骤工作流，适合需要精细控制执行顺序与分支的场景。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-pink"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V4"/><path d="M12 4l6 6"/><path d="M12 4L6 10"/></svg></div>
+      <h3>Google ADK</h3>
+      <p>Agent Development Kit 提供会话式状态机、多 Agent 协作、跨后端（Gemini、Vertex、Ollama）支持与内置的人机审批机制，主打开发效率与生产级部署。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6"/><path d="M9 13h6"/><path d="M9 17h3"/></svg></div>
+      <h3>OpenAI Agents SDK</h3>
+      <p>轻量、以"Agent + Handoffs（交接）"为核心的 Python SDK：支持工具调用、生命周期钩子、追踪与多 Agent 编排，适合快速构建和迭代单 Agent 或简单多 Agent 应用。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M4 12a2 2 0 0 0 0 4 2 2 0 0 0 0-4z"/><path d="M20 12a2 2 0 0 1 0 4 2 2 0 0 1 0-4z"/><path d="M8 12h8"/></svg></div>
+      <h3>CrewAI</h3>
+      <p>以"角色分工"为中心的多 Agent 协作框架：把任务拆给扮演不同角色的 Agent，支持顺序、层级与自主协作模式，适合团队式任务编排。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-pink"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 22 12 12 22 2 12 12 2"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg></div>
+      <h3>AutoGen</h3>
+      <p>微软的多 Agent 对话框架：多个 Agent 通过"对话"协作求解问题，强调 Agent 之间的交流与分工，适合研究探索与复杂对话式任务。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 5 5.5.5-4 4 1 5.5-4.5-3-4.5 3 1-5.5-4-4L10 8z"/></svg></div>
+      <h3>LlamaIndex / LlamaAgent</h3>
+      <p>围绕数据与检索构建 Agent：擅长把企业数据、文档与 RAG 流程接入 Agent 工作流，提供数据层能力与 Agent 编排的紧密结合。</p>
+    </div>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:56px;">
+    <div class="kicker">Frameworks vs Harness</div>
+    <h2>框架与 Harness：联系与区别</h2>
+    <p>这是初学者最容易混淆的一对概念。简单说：<strong>框架是"图纸与工具包"，Harness 是"运行的舞台"</strong>——框架定义流程怎么写，Harness 决定流程怎么跑。</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">A</div>
+      <div>
+        <h3>联系：框架内置了 Harness 的能力</h3>
+        <p>LangGraph、ADK、OpenAI Agents SDK 等框架都会内置一套"运行时"：它们自己会驱动思考→行动的循环、管理状态、注册工具、处理错误、提供追踪。也就是说，你用框架时，已经间接拥有了一个可用的 Harness。</p>
+        <span class="tag">框架内置运行时 · 开箱即用</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">B</div>
+      <div>
+        <h3>区别一：抽象层不同</h3>
+        <p>框架给你的是"高层抽象"——声明状态图、Agent、角色、任务，写得像业务代码；而 Harness 更偏"底层机制"——循环、工具路由、上下文管理、权限拦截。同一个 Harness 概念，在不同框架里的实现与叫法各不相同。</p>
+        <span class="tag">高层编排 vs 底层运行时</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">C</div>
+      <div>
+        <h3>区别二：框架更强"约束流程"，Harness 更强"运行保障"</h3>
+        <p>框架的核心价值在于编排与复用——它规定了任务如何拆解、Agent 如何协作、状态如何流转；Harness 的核心价值在于运行保障——它负责把模型、工具、记忆、权限真正"跑起来"并守住边界。框架决定流程长什么样，Harness 决定它能否安全、稳定地运转。</p>
+        <span class="tag">编排与复用 vs 运行与保障</span>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">D</div>
+      <div>
+        <h3>区别三：框架可变，Harness 是通用概念</h3>
+        <p>框架是你选型的工具（LangGraph 或 ADK 可以互相替换），而 Harness 是一个更通用的概念——你可以自己实现一个最小 Harness（状态循环 + 工具路由 + 权限拦截），也可以直接用框架内置的运行时。理解 Harness，能帮你看透任何框架的底层骨架。</p>
+        <span class="tag">选型工具 vs 通用机制</span>
+      </div>
+    </div>
   </div>
 </section>
 
