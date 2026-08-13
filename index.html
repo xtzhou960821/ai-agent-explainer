@@ -661,10 +661,10 @@
     <span class="tok-k">return</span> {"docs": [f"<span class="tok-s">{state['question']}</span> 的相关资料"]}
 
 <span class="tok-k">def</span> <span class="tok-f">answer</span>(state: State):              <span class="tok-c"># 节点 2：生成</span>
-    <span class="tok-k">return</span> {"answer": <span class="tok-s">f"根据 {len(state['docs'])} 份资料总结："</span> + <span class="tok-s">"要点ABC"</span>}
+    <span class="tok-k">return</span> {"answer": <span class="tok-s">f"根据 {len(state['docs'])} 份资料总结：要点ABC"</span>}
 
 <span class="tok-k">def</span> <span class="tok-f">route</span>(state: State) -&gt; str:       <span class="tok-c"># 条件边：不够确定就反问</span>
-    <span class="tok-k">return</span> <span class="tok-s">"answer"</span> <span class="tok-k">if</span> <span class="tok-s">"资料"</span> <span class="tok-k">in</span> state["docs"][0] <span class="tok-k">else</span> <span class="tok-s">"clarify"</span>
+    <span class="tok-k">return</span> <span class="tok-s">"answer"</span> <span class="tok-k">if</span> state["docs"] <span class="tok-k">and</span> <span class="tok-s">"资料"</span> <span class="tok-k">in</span> state["docs"][0] <span class="tok-k">else</span> <span class="tok-s">"clarify"</span>
 
 <span class="tok-k">def</span> <span class="tok-f">clarify</span>(state: State):            <span class="tok-c"># 兜底节点</span>
     <span class="tok-k">return</span> {"answer": <span class="tok-s">"请补充更多信息"</span>}
@@ -674,7 +674,7 @@ builder.add_node("retrieve", retrieve)
 builder.add_node("answer", answer)
 builder.add_node("clarify", clarify)
 builder.add_edge(START, "retrieve")
-builder.add_conditional_edges("retrieve", route, {"answer", "clarify"})
+builder.add_conditional_edges("retrieve", route)
 builder.add_edge("answer", END)
 builder.add_edge("clarify", END)
 
@@ -725,7 +725,7 @@ graph = builder.compile()              <span class="tok-c"># 编译为可运行�
   <div class="sec-head reveal" style="margin-top:56px;">
     <div class="kicker">Google ADK Code</div>
     <h3 style="font-size:26px;margin-bottom:10px;">代码示例：一个带工具的客服 Agent</h3>
-    <p>下面用声明式 Agent 对象 + 工具函数 + 会话状态演示 ADK 的核心写法：工具、会话记忆与多 Agent（sub-agents）协作。</p>
+    <p>下面用声明式 Agent 对象 + 工具函数 + 会话状态演示 ADK 的核心写法：工具、会话记忆与多 Agent（sub-agents）协作。下方为示意代码，具体 API 以当前官方文档为准。</p>
   </div>
   <div class="code-wrap reveal">
     <div class="code-head"><div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="lang">Python · Google ADK</span></div>
@@ -736,22 +736,24 @@ graph = builder.compile()              <span class="tok-c"># 编译为可运行�
 <span class="tok-k">def</span> <span class="tok-f">check_order</span>(order_id: str) -&gt; str:  <span class="tok-c"># 工具：查订单状态</span>
     <span class="tok-k">return</span> <span class="tok-s">f"订单 {order_id} 状态：已发货"</span>
 
-tool = FunctionTool(func=check_order)
+tool = FunctionTool(func=check_order)    <span class="tok-c"># 示意：按当前 SDK 注册函数为工具</span>
 
 agent = Agent(
-    model=<span class="tok-s">"gemini-2.0-flash"</span>,        <span class="tok-c"># 可换 Vertex / Ollama 等后端</span>
+    model=<span class="tok-s">"gemini-2.5-flash"</span>,       <span class="tok-c"># 示意：可换 Vertex / Ollama 等后端</span>
     name=<span class="tok-s">"support_bot"</span>,
     instruction=<span class="tok-s">"你是客服助手，友好且简洁。"</span>,
     tools=[tool],                     <span class="tok-c"># 挂载工具</span>
 )
 
-runner = InMemoryRunner(agent=agent)   <span class="tok-c"># 会话式运行器</span>
-reply = runner.run(
+runner = InMemoryRunner(agent=agent)   <span class="tok-c"># 示意：创建会话式运行器</span>
+
+<span class="tok-c"># 示例执行方式，具体返回对象与参数以当前 SDK 为准：</span>
+session = runner.run_sync(
     user_id=<span class="tok-s">"u1"</span>,
-    session_id=<span class="tok-s">"s1"</span>,
+    app_name=<span class="tok-s">"support_bot"</span>,
     message=<span class="tok-s">"帮我查一下订单 10086"</span>,
 )
-<span class="tok-k">print</span>(reply.message.content)           <span class="tok-c"># 会话记忆自动保留</span></code></pre>
+<span class="tok-k">print</span>(session.last_response)              <span class="tok-c"># 示意：会话记忆自动保留</span></code></pre>
   </div>
 
   <div class="sec-head reveal" style="margin-top:56px;">
@@ -856,7 +858,7 @@ reply = runner.run(
       <button class="faq-q" aria-expanded="false">Harness 和 Agent 开发框架到底有什么区别？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>Harness 是让 Agent 安全、持续运行的运行时机制：它负责循环、工具调用、状态、权限、重试与追踪；开发框架则是开发者写出这些流程的工具箱和抽象层。许多框架自带 Harness 能力，但两者不等同：前者关注“怎么稳定地跑”，后者也关注“怎么方便地写”。</p></div>
+      <div class="faq-a"><p>Harness 是让 Agent 安全、持续运行的运行时机制：它负责循环、工具调用、状态、权限、重试与追踪；开发框架则是开发者写出这些流程的工具箱和抽象层。许多框架自带 Harness 能力，但两者不等同：前者关注"怎么稳定地跑"，后者也关注"怎么方便地写"。</p></div>
     </div>
     <div class="faq-item reveal">
       <button class="faq-q" aria-expanded="false">做 Agent 一定要使用开发框架吗？
@@ -886,7 +888,7 @@ reply = runner.run(
       <button class="faq-q" aria-expanded="false">上生产时，Harness 最需要补齐哪些能力？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>优先补齐四类底线能力：为工具设置最小权限和关键操作审批；记录模型、工具和状态的可追溯日志；为超时和可恢复错误设置有上限的重试，为重复调用设置幂等或去重机制，并配置限额与安全停止条件；用真实任务集持续评估质量、成本和延迟。先把“出错时会怎样”设计清楚，才适合把更高的自主权交给 Agent。</p></div>
+      <div class="faq-a"><p>优先补齐四类底线能力：为工具设置最小权限和关键操作审批；记录模型、工具和状态的可追溯日志；为超时和可恢复错误设置有上限的重试，为重复调用设置幂等或去重机制，并配置限额与安全停止条件；用真实任务集持续评估质量、成本和延迟。先把"出错时会怎样"设计清楚，才适合把更高的自主权交给 Agent。</p></div>
     </div>
   </div>
 </section>
