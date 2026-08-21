@@ -303,6 +303,18 @@
 </style>
 </head>
 <body>
+<noscript>
+  <style>
+    .ns-note {
+      position:relative; z-index:2; max-width:1180px; margin:16px auto 0;
+      padding:10px 24px; text-align:center; font-size:13px; color:#A5A0C0;
+    }
+    .reveal { opacity:1 !important; transform:none !important; }
+    .faq-a { max-height:none !important; }
+    .faq-q .chev { transform:rotate(180deg); }
+  </style>
+  <p class="ns-note">当前页面未启用 JavaScript：动画与折叠效果已自动展开，所有内容均可直接阅读。</p>
+</noscript>
 
 <div class="glow" aria-hidden="true"><div class="blob"></div></div>
 
@@ -324,6 +336,7 @@
       <a href="#pipeline">执行流程</a>
       <a href="#harness">Harness</a>
       <a href="#frameworks">开发框架</a>
+      <a href="#deepseek-harness">DeepSeek Harness</a>
       <a href="#context">进阶实践</a>
       <a href="#faq">常见问题</a>
       <a class="nav-cta" href="#cta">开始了解</a>
@@ -825,6 +838,90 @@ session = runner.run_sync(
   <p class="reveal" style="margin-top:40px;color:var(--color-muted);font-size:16px;max-width:720px;">搞清框架与 Harness 之后，还要弄明白：上下文怎么塞、工具怎么接、编码型 Agent 怎么干活、评测与安全怎么守住底线——这些才是 Agent 真正跑起来之后要懂的事。</p>
 </section>
 
+<!-- ================= DEEPSEEK HARNESS ================= -->
+<section id="deepseek-harness" class="wrap">
+  <div class="sec-head reveal">
+    <div class="kicker">DeepSeek Harness · dsh</div>
+    <h2>DeepSeek Harness：2026 年爆火的开源 Agent 运行时</h2>
+    <p>2026 年 8 月 13 日，DeepSeek 开源了官方 Agent 运行时 <strong>DeepSeek Harness（dsh）</strong>——把官网那句公式 <strong>Agent = Model + Harness</strong> 落成了真正的产品。项目用 TypeScript 编写、以 MIT 协议开源，上线短短几天 GitHub Star 就冲到十几万。它最反直觉的一点是：<strong>模型本身也只是个可替换的插件</strong>。</p>
+  </div>
+
+  <div class="card reveal" style="margin-bottom:24px;">
+    <h3>把"模型"接上"世界"的那套装置</h3>
+    <p>模型负责理解、推理与生成，但它不会自己打开文件、敲命令、上网查资料。Harness 就是把这些能力接入真实环境的那层装置——相当于给"特级厨师"配好一间"厨房"：灶台、案板、锅铲、冰箱。DeepSeek 把它做成了一套<strong>可拆卸、可替换的插件系统</strong>，这也是它和"打包好的一体化工具"最根本的区别。</p>
+    <p style="margin-top:12px;color:var(--color-primary);font-weight:700;font-family:var(--font-heading);font-size:18px;">Agent = Model + Harness</p>
+  </div>
+
+  <div class="grid">
+    <div class="card reveal">
+      <div class="ic ic-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <h3>一切皆插件</h3>
+      <p>模型、工具、技能、会话、沙箱、存储、循环、调度，甚至 UI——全部由插件提供。底层的 Cordis 内核只管插件的挂载、卸载与依赖解析，不掺和其他业务逻辑。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg></div>
+      <h3>配置即组合</h3>
+      <p>不改一行源码，通过配置文件就能选择、替换、扩展任意能力，把它们组合成自己的"预设（profile）"——定制属于你的 Agent，而不是被固定流程绑死。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-pink"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <h3>每次运行都可追溯</h3>
+      <p>模型看到的一切都写入追加式会话日志：系统提示、推理过程、工具调用与结果、子 Agent 调度。Trajectory（轨迹）视图可按来源查看，还能续跑、分叉、搜索与回放。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h3>不绑定 DeepSeek 模型</h3>
+      <p>模型只是插件。除了 DeepSeek 自家模型，还支持 OpenAI、Anthropic、Gemini、Kimi 等近 40 家提供商；甚至可以调用 Claude Code、Codex 作为子 Agent，支持 MCP 与 Agent Client Protocol。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3>多运行时模式</h3>
+      <p>内置 Standard / Code / Minimal / Creator 四档模式，每档默认加载不同插件组合，按任务切换即可——从日常开发到模型基准测试都有对应配置。</p>
+    </div>
+    <div class="card reveal">
+      <div class="ic ic-pink"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>沙箱与权限边界</h3>
+      <p>文件系统沙箱覆盖 Linux Landlock、macOS Seatbelt、Windows ACL；危险操作可进沙箱、可触发人工审批——把"自主"关进可审计的笼子里。</p>
+    </div>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:64px;">
+    <div class="kicker">Runtime Modes</div>
+    <h3 style="font-size:26px;margin-bottom:10px;">四档运行时模式，按需切换</h3>
+    <p>模式只是"默认插件组合"的快捷方式：换个模式，等于换了一套能力配置。</p>
+  </div>
+  <div class="table-wrap reveal">
+    <table class="cmp">
+      <thead><tr><th>模式</th><th>默认插件组合</th><th>适合场景</th></tr></thead>
+      <tbody>
+        <tr><th>Standard 标准</th><td>文件编辑 + Shell + 文件/网页搜索 + 技能 + 规划 + 目标 + 子 Agent + 工作流</td><td>日常全栈开发与项目管理</td></tr>
+        <tr><th>Code 代码（PTC）</th><td>标准能力 + Code Mode SDK，模型生成一段 TypeScript 程序来组合多步工具调用</td><td>批量数据处理、自动化流程</td></tr>
+        <tr><th>Minimal 极简</th><td>仅 Shell + 文件编辑器（str_replace_editor）</td><td>模型基准测试、资源受限环境</td></tr>
+        <tr><th>Creator 创造</th><td>标准能力 + 运行时检查 + 插件试验 + 预设编写指导</td><td>高阶开发者做 Agent 原型设计</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:64px;">
+    <div class="kicker">Quick Start</div>
+    <h3 style="font-size:26px;margin-bottom:10px;">一分钟上手</h3>
+    <p>前提：装好 Node.js 22 及以上版本。终端敲一行命令，浏览器打开输出的本地地址，填 API Key、选好工作区就能开始。</p>
+  </div>
+  <div class="code-wrap reveal">
+    <div class="code-head"><div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><span class="lang">Terminal · dsh</span></div>
+    <pre class="code"><code>$ <span class="tok-f">npx</span> @deepseek-ai/dsh web      <span class="tok-c"># 一键启动 Web UI</span>
+<span class="tok-c"># 浏览器打开输出的本地地址</span>
+<span class="tok-c"># 填写 DeepSeek API Key → 选择要操作的项目工作区 → 开始</span></code></pre>
+  </div>
+
+  <p class="reveal" style="margin-top:32px;color:var(--color-muted);font-size:16px;max-width:720px;">需要提醒的是：官方明确标注当前仍是<strong>开发者预览（Developer Preview）</strong>，核心插件与 API 会继续演进，未来可能有破坏性变更。它更像一盒"乐高积木"而不是开箱即用的应用——追求极致灵活的同时，也把更多工程决策交到了你手上。</p>
+
+  <div class="cta-band reveal" style="margin-top:40px;">
+    <h2>一句话理解 DeepSeek Harness</h2>
+    <p>把"模型"从系统的中心降级成可替换的插件，用一套可组合、可追溯、可定制的运行时，让"一切皆插件"真正能在真实世界里接上工具、跑完任务。</p>
+  </div>
+</section>
+
 <!-- ================= CONTEXT ENGINEERING ================= -->
 <section id="context" class="wrap">
   <div class="sec-head reveal">
@@ -1042,64 +1139,88 @@ session = runner.run_sync(
   </div>
   <div class="faq">
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">AI Agent 和普通的聊天机器人有什么区别？
+      <button class="faq-q" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">AI Agent 和普通的聊天机器人有什么区别？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>聊天机器人通常只做"单轮问答"——你说一句，它回一句。而 Agent 能够理解目标、自主规划、调用外部工具、执行多步操作并自我纠错。它不只是"回复"，而是"做事"。</p></div>
+      <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1"><p>聊天机器人通常只做"单轮问答"——你说一句，它回一句。而 Agent 能够理解目标、自主规划、调用外部工具、执行多步操作并自我纠错。它不只是"回复"，而是"做事"。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">Agent 的"自主"是完全不需要人吗？
+      <button class="faq-q" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">Agent 的"自主"是完全不需要人吗？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>不是。真正的产品会设置"人机协作"边界：在关键决策、高风险操作或超出权限的任务上，Agent 会停下来请求人工审批。自主性是有范围、有约束的，而不是无限放权。</p></div>
+      <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2"><p>不是。真正的产品会设置"人机协作"边界：在关键决策、高风险操作或超出权限的任务上，Agent 会停下来请求人工审批。自主性是有范围、有约束的，而不是无限放权。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">大模型就是 Agent 吗？
+      <button class="faq-q" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">大模型就是 Agent 吗？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>大模型是 Agent 的"大脑"，但 Agent 本身是一个更完整的系统。它还要靠记忆、工具、规划和安全机制才能真正"行动"。你可以把大模型比作发动机，把 Agent 比作一辆完整的汽车。</p></div>
+      <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3"><p>大模型是 Agent 的"大脑"，但 Agent 本身是一个更完整的系统。它还要靠记忆、工具、规划和安全机制才能真正"行动"。你可以把大模型比作发动机，把 Agent 比作一辆完整的汽车。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">为什么 Agent 有时会"卡住"或出错？
+      <button class="faq-q" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">为什么 Agent 有时会"卡住"或出错？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>原因通常有三类：模型推理出现偏差（幻觉）、工具调用失败（API 报错、数据格式不符）、或规划在复杂场景下"钻牛角尖"。成熟的 Agent 会通过重试机制、结果验证和多轮反馈来缓解这些问题。</p></div>
+      <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4"><p>原因通常有三类：模型推理出现偏差（幻觉）、工具调用失败（API 报错、数据格式不符）、或规划在复杂场景下"钻牛角尖"。成熟的 Agent 会通过重试机制、结果验证和多轮反馈来缓解这些问题。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">Harness 和 Agent 开发框架到底有什么区别？
+      <button class="faq-q" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">Harness 和 Agent 开发框架到底有什么区别？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>Harness 是让 Agent 安全、持续运行的运行时机制：它负责循环、工具调用、状态、权限、重试与追踪；开发框架则是开发者写出这些流程的工具箱和抽象层。许多框架自带 Harness 能力，但两者不等同：前者关注"怎么稳定地跑"，后者也关注"怎么方便地写"。</p></div>
+      <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5"><p>Harness 是让 Agent 安全、持续运行的运行时机制：它负责循环、工具调用、状态、权限、重试与追踪；开发框架则是开发者写出这些流程的工具箱和抽象层。许多框架自带 Harness 能力，但两者不等同：前者关注"怎么稳定地跑"，后者也关注"怎么方便地写"。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">做 Agent 一定要使用开发框架吗？
+      <button class="faq-q" id="faq-q6" aria-expanded="false" aria-controls="faq-a6">做 Agent 一定要使用开发框架吗？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>不一定。单一、步骤固定的任务，用少量代码调用模型和工具往往更清晰；当任务需要状态管理、分支与循环、多人协作、持久化或可观测性时，框架能省去大量重复工程。先用最简单且可验证的方式解决问题，再根据复杂度引入框架，通常是更稳妥的选择。</p></div>
+      <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-q6"><p>不一定。单一、步骤固定的任务，用少量代码调用模型和工具往往更清晰；当任务需要状态管理、分支与循环、多人协作、持久化或可观测性时，框架能省去大量重复工程。先用最简单且可验证的方式解决问题，再根据复杂度引入框架，通常是更稳妥的选择。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">什么时候用框架内置的 Harness，什么时候需要自建？
+      <button class="faq-q" id="faq-q7" aria-expanded="false" aria-controls="faq-a7">什么时候用框架内置的 Harness，什么时候需要自建？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>原型验证和常见流程优先使用框架内置能力：接入快，也能获得成熟的工具路由、状态管理与追踪。只有当你的权限模型、审计要求、工具协议、成本控制或部署环境与框架约束明显冲突时，才考虑自建或深度扩展 Harness；自建意味着也要自己承担测试、监控与故障恢复。</p></div>
+      <div class="faq-a" id="faq-a7" role="region" aria-labelledby="faq-q7"><p>原型验证和常见流程优先使用框架内置能力：接入快，也能获得成熟的工具路由、状态管理与追踪。只有当你的权限模型、审计要求、工具协议、成本控制或部署环境与框架约束明显冲突时，才考虑自建或深度扩展 Harness；自建意味着也要自己承担测试、监控与故障恢复。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">LangGraph、Google ADK、OpenAI Agents SDK、CrewAI 应该怎么选？
+      <button class="faq-q" id="faq-q8" aria-expanded="false" aria-controls="faq-a8">LangGraph、Google ADK、OpenAI Agents SDK、CrewAI 应该怎么选？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>先看任务形态，而不是框架热度：需要精确控制状态、分支与中断时可优先看 LangGraph；想快速搭建以会话和 Google 生态为中心的应用可看 ADK；希望轻量实现工具调用与 Agent 交接可看 OpenAI Agents SDK；任务天然需要明确角色分工时可评估 CrewAI。用一个真实的小任务做原型，比较可控性、调试体验和部署成本后再定型。</p></div>
+      <div class="faq-a" id="faq-a8" role="region" aria-labelledby="faq-q8"><p>先看任务形态，而不是框架热度：需要精确控制状态、分支与中断时可优先看 LangGraph；想快速搭建以会话和 Google 生态为中心的应用可看 ADK；希望轻量实现工具调用与 Agent 交接可看 OpenAI Agents SDK；任务天然需要明确角色分工时可评估 CrewAI。用一个真实的小任务做原型，比较可控性、调试体验和部署成本后再定型。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">多 Agent 一定比单 Agent 更好吗？
+      <button class="faq-q" id="faq-q9" aria-expanded="false" aria-controls="faq-a9">多 Agent 一定比单 Agent 更好吗？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>不一定。多 Agent 能把专业角色、上下文和权限隔离开，适合可并行或需要交叉审阅的复杂任务；但它也会增加协调、延迟、成本和排错难度。若一个 Agent 加上清晰的工具和步骤就能完成任务，单 Agent 往往更快、更便宜、更容易验证；只有分工能带来可衡量收益时才拆分。</p></div>
+      <div class="faq-a" id="faq-a9" role="region" aria-labelledby="faq-q9"><p>不一定。多 Agent 能把专业角色、上下文和权限隔离开，适合可并行或需要交叉审阅的复杂任务；但它也会增加协调、延迟、成本和排错难度。若一个 Agent 加上清晰的工具和步骤就能完成任务，单 Agent 往往更快、更便宜、更容易验证；只有分工能带来可衡量收益时才拆分。</p></div>
     </div>
     <div class="faq-item reveal">
-      <button class="faq-q" aria-expanded="false">上生产时，Harness 最需要补齐哪些能力？
+      <button class="faq-q" id="faq-q10" aria-expanded="false" aria-controls="faq-a10">上生产时，Harness 最需要补齐哪些能力？
         <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="faq-a"><p>优先补齐四类底线能力：为工具设置最小权限和关键操作审批；记录模型、工具和状态的可追溯日志；为超时和可恢复错误设置有上限的重试，为重复调用设置幂等或去重机制，并配置限额与安全停止条件；用真实任务集持续评估质量、成本和延迟。先把"出错时会怎样"设计清楚，才适合把更高的自主权交给 Agent。</p></div>
+      <div class="faq-a" id="faq-a10" role="region" aria-labelledby="faq-q10"><p>优先补齐四类底线能力：为工具设置最小权限和关键操作审批；记录模型、工具和状态的可追溯日志；为超时和可恢复错误设置有上限的重试，为重复调用设置幂等或去重机制，并配置限额与安全停止条件；用真实任务集持续评估质量、成本和延迟。先把"出错时会怎样"设计清楚，才适合把更高的自主权交给 Agent。</p></div>
+    </div>
+  <div class="faq-item reveal">
+      <button class="faq-q" id="faq-q11" aria-expanded="false" aria-controls="faq-a11">前面讲的"Harness"和 DeepSeek Harness 是一回事吗？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a" id="faq-a11" role="region" aria-labelledby="faq-q11"><p>不是完全一样。前面讲的是 Harness 的通用概念——模型之外让 Agent 跑起来的那层运行时；DeepSeek Harness（dsh）则是 DeepSeek 官方开源的具体实现产品，把"Agent = Model + Harness"做成了一套"一切皆插件"的运行时。理解通用概念，才能看懂它每个设计选择在解决什么问题。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" id="faq-q12" aria-expanded="false" aria-controls="faq-a12">用 DeepSeek Harness 必须搭配 DeepSeek 的模型吗？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a" id="faq-a12" role="region" aria-labelledby="faq-q12"><p>不必。DeepSeek 模型只是默认且最容易配置的路径，模型本身是一个可替换的插件——官方支持 OpenAI、Anthropic、Google Gemini、Kimi 等近 40 家提供商，甚至可以把 Claude Code、Codex 作为子 Agent 编排进来。不同提供商在工具调用格式、推理行为与安全表现上有差异，切换前建议在相同任务集上分别实测。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" id="faq-q13" aria-expanded="false" aria-controls="faq-a13">它和 Claude Code、Codex 这类工具到底有什么区别？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a" id="faq-a13" role="region" aria-labelledby="faq-q13"><p>Claude Code、Codex 是厂商预先封装好的"一体化工具"：流程完整、开箱即用，但能改的部分有限。DeepSeek Harness 反过来把每个能力都做成可替换的插件，更灵活、可组合，代价是它不是开箱即用——更像一盒乐高积木，需要自己拼装和调试。想要省事选前者，想深度定制可以看后者。</p></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" id="faq-q14" aria-expanded="false" aria-controls="faq-a14">DeepSeek Harness 现在能直接上生产吗？
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-a" id="faq-a14" role="region" aria-labelledby="faq-q14"><p>官方明确标注为开发者预览，且警告未来会有破坏性变更，因此还不适合作为生产控制平面直接依赖。做范围受控的工程试点是可以的：先用最小权限 + 沙箱跑真实小任务，用轨迹日志验证质量、成本与延迟，等 API 稳定后再决定是否扩大使用面。上手尝鲜则完全没问题——装好 Node.js 后一行命令就能启动。</p></div>
     </div>
   </div>
 </section>
