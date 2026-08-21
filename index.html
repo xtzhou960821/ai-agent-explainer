@@ -146,6 +146,40 @@
     38%  { left:115%; opacity:0; }
     100% { left:115%; opacity:0; }
   }
+
+  /* ---- Ambient whale swimming across the hero ---- */
+  .whale-scene {
+    position:absolute; top:0; left:50%; width:100vw; height:100%;
+    transform:translateX(-50%); overflow:hidden; pointer-events:none; z-index:-1;
+  }
+  .whale-swim {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    will-change:transform; animation:whale-swim 36s linear infinite;
+  }
+  .whale {
+    position:absolute; bottom:66%; left:0;
+    width:min(400px, 50vw);
+    opacity:.6;
+    filter:drop-shadow(0 0 16px rgba(124,58,237,.5));
+    animation:whale-bob 7s ease-in-out infinite;
+  }
+  .whale .whale-spout { animation:spout-pulse 3.6s ease-in-out infinite; }
+  @keyframes whale-swim {
+    0%   { transform:translateX(-560px); }
+    100% { transform:translateX(calc(100vw + 560px)); }
+  }
+  @keyframes whale-bob {
+    0%,100% { transform:translateY(0) rotate(.6deg) scaleX(-1); }
+    50%     { transform:translateY(-16px) rotate(-1.4deg) scaleX(-1); }
+  }
+  @keyframes spout-pulse {
+    0%,100% { opacity:.35; }
+    50%     { opacity:.95; }
+  }
+  @media(max-width:768px){
+    .whale { width:min(300px, 60vw); bottom:60%; opacity:.5; }
+  }
+
   .hero .sub { max-width:680px; margin:0 auto var(--space-2xl); color:var(--color-muted); font-size:clamp(17px,2vw,20px); }
   .hero-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
   .btn {
@@ -299,6 +333,10 @@
     html { scroll-behavior:auto; }
     *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
     .reveal { opacity:1; transform:none; }
+    /* Whale rests in place instead of swimming off-screen */
+    .whale-swim, .whale, .whale .whale-spout { animation:none !important; }
+    .whale-swim { transform:none; }
+    .whale { left:50%; transform:translateX(-50%); bottom:46%; opacity:.4; }
   }
 </style>
 </head>
@@ -346,6 +384,38 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero wrap">
+  <!-- Ambient whale swimming behind the hero -->
+  <div class="whale-scene" aria-hidden="true">
+    <div class="whale-swim">
+      <svg class="whale" viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="whaleGrad" x1="0" y1="0" x2="0.8" y2="1">
+            <stop offset="0" stop-color="#A78BFA"/>
+            <stop offset="0.55" stop-color="#8B5CF6"/>
+            <stop offset="1" stop-color="#6366F1"/>
+          </linearGradient>
+        </defs>
+        <path d="M30 104 C42 66 96 44 154 54 C216 64 268 67 330 57 C332 64 332 84 330 93 C344 101 358 109 368 115 C362 97 356 83 348 73 C360 63 366 47 362 27 C352 37 340 47 330 57 C332 64 332 84 330 93 C284 107 216 118 152 118 C96 118 50 116 30 104 Z"
+              fill="url(#whaleGrad)" stroke="rgba(196,181,253,0.65)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M196 61 C196 49 203 39 212 32 C219 42 223 52 225 62 C216 58 206 58 196 61 Z"
+              fill="url(#whaleGrad)" stroke="rgba(196,181,253,0.65)" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M122 100 C112 116 102 128 92 133 C104 126 118 118 134 110 C136 104 130 100 122 100 Z"
+              fill="url(#whaleGrad)" stroke="rgba(196,181,253,0.65)" stroke-width="2" stroke-linejoin="round"/>
+        <g fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.4" stroke-linecap="round">
+          <path d="M60 114 C90 120 120 121 150 120"/>
+          <path d="M84 116 C110 121 136 122 162 120"/>
+          <path d="M108 117 C130 121 150 121 172 118"/>
+        </g>
+        <path d="M36 99 C54 105 78 109 102 107" fill="none" stroke="rgba(244,242,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="74" cy="80" r="4.5" fill="#0B0A14" stroke="rgba(244,242,255,0.8)" stroke-width="1.5"/>
+        <g class="whale-spout" fill="#C4B5FD">
+          <circle cx="118" cy="42" r="5"/>
+          <circle cx="127" cy="34" r="4"/>
+          <circle cx="136" cy="40" r="3.5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
   <div class="badge">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
     可视化指南 · 2026
